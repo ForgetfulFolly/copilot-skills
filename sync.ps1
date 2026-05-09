@@ -37,12 +37,12 @@ function Sync-Dir {
     if (-not (Test-Path $Src)) { Write-Host "  [SKIP] $Label source not found: $Src"; return }
     if (-not (Test-Path $Dst)) { New-Item -ItemType Directory -Path $Dst -Force | Out-Null }
     $files = Get-ChildItem -Path $Src -Filter "*.md" -File
-    if ($files.Count -eq 0) { Write-Host "  [SKIP] $Label — no .md files in $Src"; return }
+    if ($files.Count -eq 0) { Write-Host "  [SKIP] $Label - no .md files in $Src"; return }
     foreach ($f in $files) {
         Copy-Item -Path $f.FullName -Destination (Join-Path $Dst $f.Name) -Force
         Write-Host "  [COPY] $Label  $($f.Name)"
     }
-    Write-Host "  [DONE] $Label — $($files.Count) file(s) -> $Dst"
+    Write-Host "  [DONE] $Label - $($files.Count) file(s) -> $Dst"
 }
 
 function Harvest-Dir {
@@ -50,12 +50,12 @@ function Harvest-Dir {
     if (-not (Test-Path $Src)) { Write-Host "  [SKIP] $Label live dir not found: $Src"; return }
     if (-not (Test-Path $Dst)) { New-Item -ItemType Directory -Path $Dst -Force | Out-Null }
     $files = Get-ChildItem -Path $Src -Filter "*.md" -File
-    if ($files.Count -eq 0) { Write-Host "  [SKIP] $Label — no .md files in $Src"; return }
+    if ($files.Count -eq 0) { Write-Host "  [SKIP] $Label - no .md files in $Src"; return }
     foreach ($f in $files) {
         Copy-Item -Path $f.FullName -Destination (Join-Path $Dst $f.Name) -Force
         Write-Host "  [PULL] $Label  $($f.Name)"
     }
-    Write-Host "  [DONE] $Label — $($files.Count) file(s) <- $Src"
+    Write-Host "  [DONE] $Label - $($files.Count) file(s) <- $Src"
 }
 
 if ($Harvest) {
